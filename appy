@@ -1,0 +1,66 @@
+import streamlit as st
+
+# Título de la app
+st.title('Calculadora de la Ecuación de los Gases Ideales')
+
+# Constante de los gases ideales
+R = 0.0821  # atm·L/mol·K
+
+# Selección de la variable a calcular
+st.subheader('¿Qué variable quieres calcular?')
+opcion = st.radio(
+    'Selecciona una opción:',
+    ('Presión (P)', 'Volumen (V)', 'Temperatura (T)', 'Número de moles (n)')
+)
+
+if opcion == 'Presión (P)':
+    st.subheader('Ingresa los datos:')
+    volumen = st.number_input('Volumen (L)', min_value=0.0, format="%.4f")
+    temperatura = st.number_input('Temperatura (K)', min_value=0.0, format="%.4f")
+    moles = st.number_input('Número de moles (mol)', min_value=0.0, format="%.4f")
+    
+    if st.button('Calcular Presión'):
+        if volumen > 0 and temperatura > 0 and moles > 0:
+            presion = (moles * R * temperatura) / volumen
+            st.success(f'La presión es: {presion:.4f} atm')
+        else:
+            st.error('Por favor ingresa valores mayores a 0.')
+
+elif opcion == 'Volumen (V)':
+    st.subheader('Ingresa los datos:')
+    presion = st.number_input('Presión (atm)', min_value=0.0, format="%.4f")
+    temperatura = st.number_input('Temperatura (K)', min_value=0.0, format="%.4f")
+    moles = st.number_input('Número de moles (mol)', min_value=0.0, format="%.4f")
+    
+    if st.button('Calcular Volumen'):
+        if presion > 0 and temperatura > 0 and moles > 0:
+            volumen = (moles * R * temperatura) / presion
+            st.success(f'El volumen es: {volumen:.4f} L')
+        else:
+            st.error('Por favor ingresa valores mayores a 0.')
+
+elif opcion == 'Temperatura (T)':
+    st.subheader('Ingresa los datos:')
+    presion = st.number_input('Presión (atm)', min_value=0.0, format="%.4f")
+    volumen = st.number_input('Volumen (L)', min_value=0.0, format="%.4f")
+    moles = st.number_input('Número de moles (mol)', min_value=0.0, format="%.4f")
+    
+    if st.button('Calcular Temperatura'):
+        if presion > 0 and volumen > 0 and moles > 0:
+            temperatura = (presion * volumen) / (moles * R)
+            st.success(f'La temperatura es: {temperatura:.4f} K')
+        else:
+            st.error('Por favor ingresa valores mayores a 0.')
+
+elif opcion == 'Número de moles (n)':
+    st.subheader('Ingresa los datos:')
+    presion = st.number_input('Presión (atm)', min_value=0.0, format="%.4f")
+    volumen = st.number_input('Volumen (L)', min_value=0.0, format="%.4f")
+    temperatura = st.number_input('Temperatura (K)', min_value=0.0, format="%.4f")
+    
+    if st.button('Calcular Número de moles'):
+        if presion > 0 and volumen > 0 and temperatura > 0:
+            moles = (presion * volumen) / (R * temperatura)
+            st.success(f'El número de moles es: {moles:.4f} mol')
+        else:
+            st.error('Por favor ingresa valores mayores a 0.')
